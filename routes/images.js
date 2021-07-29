@@ -12,9 +12,13 @@ const fetchImages = () => new Promise((resolve, reject) => {
   });
 })
 
+// TODO: Assumptions
 router.get('/', async (req,res,next) => {
+  const index = parseInt(req.query.index);
+  const interval = parseInt(req.query.interval);
   const images = await fetchImages();
-  res.send({ body: images.data })
+  
+  res.send({ body: images.data.filter((item, arrIndex) => arrIndex >= index && arrIndex < (index + interval)) })
 });
 
 
